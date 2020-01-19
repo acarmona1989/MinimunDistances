@@ -14,40 +14,6 @@ class Graph:
     def addEdge(self,u,v): 
         self.graph[u].append(v) 
 
-    
-    # def distanceToRoot()
-
-
-       # Function to print a BFS of graph 
-    def BFS(self, s): 
-        result = []
-        steps = 0
-        leaves = {}
-        queue = [] 
-        queue.append(s) 
-        visited = {}
-        visited.update({s:True}) 
-  
-        while queue: 
-            s = queue.pop(0) 
-            result.append(s)
-            
-            if len(self.graph[s]) == 0:
-                leaves.update({
-                   s:steps
-                })
-            else:
-                steps += 1
-            
-            for i in self.graph[s]: 
-                if i not in visited: 
-                    queue.append(i) 
-                    visited.update({i:True})
-
-        return {'exits':leaves,
-                'visited':result}
-
-
     def bfs_shortest_path(self, start, goal):
         # keep track of explored nodes
         explored = []
@@ -74,7 +40,7 @@ class Graph:
                     queue.append(new_path)
                     # return path if neighbour is goal
                     if neighbour == goal:
-                        return {'path':new_path,'explored':explored}
+                        return {'minimun_path':new_path,'explored':explored}
     
                 # mark node as explored
                 explored.append(node)

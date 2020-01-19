@@ -1,5 +1,7 @@
 from flask import Flask
+from flask import jsonify
 from graph import Graph
+
 
 app = Flask(__name__)
 
@@ -95,19 +97,33 @@ def createGraph():
 
 @app.route('/')
 def hello():
-    # count = get_hit_count()
-    # path = find_all_paths(graph, 'root', 'A4')
     response = {
-        "items":[]
+        "paths":[]
     }
-    # for item in path:
-    #     pathItem = {
-    #         "path": item
-    #     }
-    #     response["items"].append(pathItem)
+   
     g = createGraph()
-    values = g.bfs_shortest_path('A1','H1')
-    for item in values:
-        response["items"].append(item)
+    
+    pathItem1 = {
+            "Source":'A1',
+            "Destination":'H1',
+            "path": g.bfs_shortest_path('A1','H1')
+        }
+        
+    response["paths"].append(pathItem1)
+    pathItem2 = {
+            "Source":'A1',
+            "Destination":'A7',
+            "path": g.bfs_shortest_path('A1','A7')
+        }
+        
+    response["paths"].append(pathItem2)
 
-    return values
+    pathItem3 = {
+            "Source":'A1',
+            "Destination":'E7',
+            "path": g.bfs_shortest_path('A1','E7')
+        }
+        
+    response["paths"].append(pathItem3)
+   
+    return jsonify(response)
