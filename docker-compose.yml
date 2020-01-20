@@ -1,10 +1,23 @@
 version: '3'
 services:
-  web:
-    build: .
+  backend:
+    build: ./server
     ports:
-      - "5000:5000"
+      - 5000:5000
     volumes:
-      - .:/code
+      - .:/usr/src/app
     environment:
       FLASK_ENV: development
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "5001:5001"
+    volumes: 
+      - .:/usr/src/minimundistances/src
+      - .:/usr/src/minimundistances/public
+    environment:
+      - NODE_ENV=development
+    links: 
+      - "backend:backend"

@@ -1,18 +1,17 @@
 from flask import Flask
+from flask_cors import CORS
 from flask import jsonify
 from graph import Graph
 
-
 app = Flask(__name__)
+cors = CORS(app)
 
 def createGraph():
     g = Graph()
     g.addEdge('A1','B1')
     g.addEdge('B1','A1')
     g.addEdge('B1','B2')
-    # g.addEdge('B2','B1')
     g.addEdge('B2','B3')
-    # g.addEdge('B3','B2')
     g.addEdge('B3','A3')
     g.addEdge('A3','B3')
     g.addEdge('B3','C3')
