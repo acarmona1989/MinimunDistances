@@ -96,9 +96,7 @@ def createGraph():
 
 @app.route('/')
 def hello():
-    response = {
-        "paths":[]
-    }
+    paths = []
    
     g = createGraph()
     
@@ -108,14 +106,14 @@ def hello():
             "path": g.bfs_shortest_path('A1','H1')
         }
         
-    response["paths"].append(pathItem1)
+    paths.append(pathItem1)
     pathItem2 = {
             "Source":'A1',
             "Destination":'A7',
             "path": g.bfs_shortest_path('A1','A7')
         }
         
-    response["paths"].append(pathItem2)
+    paths.append(pathItem2)
 
     pathItem3 = {
             "Source":'A1',
@@ -123,6 +121,9 @@ def hello():
             "path": g.bfs_shortest_path('A1','E7')
         }
         
-    response["paths"].append(pathItem3)
+    paths.append(pathItem3)
    
-    return jsonify(response)
+    return jsonify(paths)
+
+if __name__ == "__main__":
+    app.run(debug=True)

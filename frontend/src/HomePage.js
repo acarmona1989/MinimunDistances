@@ -1,26 +1,27 @@
 import React from 'react';
-import {RestDataSource} from './webService/RestDataSource'
+import { RestDataSource } from './webService/RestDataSource'
+import { Path } from './Path'
 
 export class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            paths: ''
+            paths: []
         }
-        this.dataSource = new RestDataSource("http://localhost:5000/", 
-            (err) => 'this.props.history.push(`/error/${err}`)');
+        this.dataSource = new RestDataSource("http://localhost:5000/",
+            (err) => function(){});
     }
 
-    handleGetPaths(){
-        this.dataSource.GetData(data => this.setState({paths: {data}}));
+    handleGetPaths() {
+
+        this.dataSource.GetData(data => this.setState({ paths: data }));
     }
 
     render() {
-        const { paths } = this.props;
         return <React.Fragment>
             <div className="App">
                 <div className="row">
-                    <div className="col-6">
+                    <div className="col-4">
                         <div id="post">Which are the paths with minimum distances?</div>
                         <div className="content">
                             <table className="table table-bordered">
@@ -128,11 +129,16 @@ export class HomePage extends React.Component {
                             </table>
                         </div>
                     </div>
-                    <div className="col-6">
-                        <div className="content">
+                    <div className="col-8">
+                        <div className="response">
                             Reponse:
-                            {this.state.paths}
-          </div>
+                            <div>
+                                <ul>
+                                    {this.state.paths.map(p => <Path key={p.Destination} path={p}></Path>)}
+                                </ul>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
                 <div className="row">
@@ -146,9 +152,3 @@ export class HomePage extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    const { paths } = state;
-    return {
-        paths
-    };
-}
