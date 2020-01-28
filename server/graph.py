@@ -14,11 +14,34 @@ class Graph:
     def addEdge(self,u,v): 
         self.graph[u].append(v) 
 
+    def bfs_connected_component(self, graph, start):
+        explored = []
+        queue = [start]
+        # level = [None] * (len(self.graph))
+        level = defaultdict(list) 
+        level[start] = 0 
+    
+        while queue:
+            node = queue.pop(0)
+            neighbours = self.graph[node]
+            
+            if node not in explored:
+
+                explored.append(node)
+
+                for neighbour in neighbours:
+                    if neighbour not in explored:
+                        queue.append(neighbour)
+                        level[neighbour] = level[node] + 1
+
+        return {'explored':explored, 'level': level}        
+
     def bfs_shortest_path(self, start, goal):
         # keep track of explored nodes
         explored = []
         # keep track of all the paths to be checked
         queue = [[start]]
+        
     
         # return path if start is goal
         if start == goal:
