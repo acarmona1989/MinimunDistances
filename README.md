@@ -1,5 +1,5 @@
 # MinimunDistances
 
-This software solves the classic problem related to the search for the shortest route between two points. The Breadth-First Search algorithm is used in this solution.
+This is a proof of concept for testing a bfs algorithm in python language and then show the result in an app using react.js. All them deployed in docker containers
 
-To deploy this software run deployServer.bat file and then deployClient.bat file.
+To deploy this software run deploy.bat file
